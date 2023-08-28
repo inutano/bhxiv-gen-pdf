@@ -67,39 +67,69 @@ resources=rootdir + "/resources/biohackrxiv"
 # itself, see metadata.rb
 
 EVENT_TYPE = {
+  "BLAH8": {
+      title:    "Biomedical Linked Annotation Hackathon 8",
+      URL:      "https\://blah8.linkedannotation.org/",
+      location: "Chiba, Japan, 2024"
+  },
+  "BH23EU": {
+      title:    "BioHackathon Europe 2023",
+      URL:      "https\://www.biohackathon-europe.org/",
+      location: "Barcelona, Spain, 2023"
+  },
+  "BH23JP": {
+    title:    "DBCLS BioHackathon 2023",
+    URL:      "https\://2023.biohackathon.org/",
+    location: "Kagawa, Japan, 2023"
+  },
+  "SWAT4HCLS23": {
+    title:    "SWAT4HCLS 2023",
+    URL:      "https\://www.swat4ls.org/workshops/basel2023/",
+    location: "Basel, Switzerland, 2023"
+  },
+  "BH23MENA": {
+    title:    "BioHackathon MENA 2023",
+    URL:      "https\://cbrcconferences.kaust.edu.sa/bio-hackathon-2023",
+    location: "KAUST, Saudi Arabia, 2023"
+  },
+  "BH22EU": {
+    title:    "BioHackathon Europe 2022",
+    URL:      "https\://www.biohackathon-europe.org/",
+    location: "Paris, France, 2022"
+  },
   "BH21EU": {
-    title: "BioHackathon Europe 2021",
-    URL:   "https\://www.biohackathon-europe.org//",
+    title:    "BioHackathon Europe 2021",
+    URL:      "https\://www.biohackathon-europe.org/",
     location: "Barcelona, Spain, 2021"
   },
   "BH20EU": {
-    title: "BioHackathon Europe 2020",
-    URL:   "https\://www.biohackathon-europe.org//",
+    title:    "BioHackathon Europe 2020",
+    URL:      "https\://www.biohackathon-europe.org/",
     location: "Virtual conference 2020"
   },
   "BCC2020": {
-    title: "Bioinformatics Community Conference 2020 CollaborationFest (CoFest)",
-    URL:   "https\://bcc2020.github.io/cofest/",
+    title:    "Bioinformatics Community Conference 2020 CollaborationFest (CoFest)",
+    URL:      "https\://bcc2020.github.io/cofest/",
     location: "Virtual conference 2020"
   },
   "Covid2020": {
-    title: "COVID-19 BioHackathon",
-    URL:   "https\://github.com/virtual-biohackathons/covid-19-bh20",
+    title:    "COVID-19 BioHackathon",
+    URL:      "https\://github.com/virtual-biohackathons/covid-19-bh20",
     location: "Virtual conference 2020"
   },
   "France2019": {
-    title: "BioHackathon EUROPE",
-    URL:   "https\://www.biohackathon-europe.org//",
+    title:    "BioHackathon EUROPE",
+    URL:      "https\://www.biohackathon-europe.org//",
     location: "Paris, France, 2019"
   },
   "Japan2019": {
-    title: "NBDC/DBCLS BioHackathon",
-    URL:   "http\://2019.biohackathon.org/",
+    title:    "NBDC/DBCLS BioHackathon",
+    URL:      "http\://2019.biohackathon.org/",
     location: "Fukuoka, Japan, 2019"
   },
   "Japan2018": {
-    title: "NBDC/DBCLS BioHackathon",
-    URL:   "http\://2018.biohackathon.org/",
+    title:    "NBDC/DBCLS BioHackathon",
+    URL:      "http\://2018.biohackathon.org/",
     location: "Matsue, Japan, 2018"
   },
   "Other": nil # reserved. See metadata.rb
@@ -115,17 +145,19 @@ EVENT =
   else
     EVENT_TYPE[bioh.to_sym]
   end
-# p EVENT
+
 # Plug things in that are not on command line
 
 git_url = meta['git_url'] if not git_url and meta.has_key?('git_url')
-raise GenPdfError "git_url is undefined in metadata" if not git_url
+raise GenPdfError,"git_url is undefined in metadata - provide 'git_url' in the markdown header as a reference to the git repo if you are using a zip file" if not git_url
 
 JOURNAL='biohackrxiv'
 JOURNAL_NAME='BioHackrXiv.org'
 JOURNAL_URL='https://biohackrxiv.org/'
 TEX=resources + "/latex.template"
-CSL=resources + "/apa.csl"
+CSL=resources + "/apa-new.csl"
+EXTRACT_CITO=resources + "/filters/extract-cito.lua"
+INSERT_CITO=resources + "/filters/insert-cito-in-ref.lua"
 JOURNAL_LOGO=resources + "/logo.png"
 
 time = Time.new
@@ -145,8 +177,11 @@ cmd = <<COMMAND
       -V geometry:margin=1in
       --from markdown+autolink_bare_uris
       --template '#{TEX}'
+      --no-check-certificate
       --csl=#{CSL}
+      --lua-filter='#{EXTRACT_CITO}'
       #{ ( paperbib ? "--citeproc" : "") }
+      --lua-filter='#{INSERT_CITO}'
       -s
       --output='#{outfn}'
       paper.md
