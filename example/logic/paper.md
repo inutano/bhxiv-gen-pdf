@@ -1,28 +1,34 @@
 ---
-title: 'BioHackrXiv template mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla c wjfc wjknwjek nwjkwen jk'
+title: 'BioHackrXiv template this is an example of a (too) long title mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla c wjfc wjknwjek nwjkwen jk'
 title_short: 'Logic Programming for the Biomedical Sciences'
 tags:
   - logic programming
 authors:
   - name: Chris Mungall
-    orcid: 0000-0002-8021-9162
+    orcid: 0000-0002-6601-2165
     affiliation: 1
+    role: Writing
   - name: Hirokazu Chiba
     affiliation: 2
+    orcid: 0000-0003-4062-8903
   - name: Shuichi Kawashima
     affiliation: 2
+    orcid: 0000-0001-7883-3756
   - name: Yasunori Yamamoto
     affiliation: 2
+    orcid: 0000-0002-6943-6887
   - name: Pjotr Prins
     orcid: 0000-0002-8021-9162
     affiliation: 3
   - name: Nada Amin
     affiliation: 4
+    orcid: 0000-0002-0830-7248
   - name: Deepak Unni
     affiliation: 5
     orcid: 0000-0002-3583-7340
   - name: <nobr>William&nbsp;E.&nbsp;Byrd</nobr>
     affiliation: 6
+    orcid: 0000-0003-4730-5293
 affiliations:
   - name: Environmental Genomics and Systems Biology, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
     index: 1
@@ -32,21 +38,22 @@ affiliations:
     index: 3
   - name: Harvard University, USA
     index: 4
+    ror: 03vek6s52
   - name: Berkeley Lab, USA
     index: 5
   - name: University of Alabama at Birmingham, USA
     index: 6
 date: 3 March 2020
-bibliography: paper.bib
+cito-bibliography: paper.bib
 event: Fukuoka2019
 biohackathon_name: "NBDC/DBCLS BioHackathon"
 biohackathon_url:   "http://2019.biohackathon.org/"
 biohackathon_location: "Fukuoka, Japan, 2019"
 group: Logic programming group
-# URL to project git repo --- should contain paper.md
+# URL to project git repo --- should contain the actual paper.md:
 git_url: https://github.com/biohackrxiv/bhxiv-gen-pdf
 # This is the short authors description that is used at the
-# bottom of the generated paper.
+# bottom of the generated paper (typically the first two authors):
 authors_short: Chris Mungall & Hirokazu Chiba \emph{et al.}
 ---
 
@@ -66,7 +73,7 @@ pasting above link (or yours) in
 
 # Introduction
 
-As part of the one week Biohackathion 2019 in Fukuoka Japan, we formed
+As part of the one week Biohackathion 2019 in Fukuoka (福岡) Japan, we formed
 a working group on logic programming for the biomedical sciences.
 Logic programming is understood by many bioinformaticians when it is
 presented in the form of relational SQL queries or SPARQL
@@ -76,7 +83,7 @@ language that has its roots in first-order logic or first-order
 predicate calculus.  Another example, miniKanren, is an embedded
 Domain Specific Language for logic programming. Core miniKanren is
 exceptionally simple, with only three logical operators and one
-interface operator [@reasoned2nd].
+interface operator [@uses_method_in:reasoned2nd].
 
 ![Logic programming resolver traverses the solution space to find all matches \label{fig}](./logic-programming.png)
 
@@ -95,7 +102,7 @@ representing unknown information.  The logic engine then goes through
 the solution space (all data) to find possible matches (see figure
 \ref{fig}). Much more detail on the rationale and implementations of
 miniKanren and logic programming are well summarized in Byrd's book
-\emph{The Reasoned Schemer, Second Edition} [@reasoned2nd], PhD thesis
+\emph{The Reasoned Schemer, Second Edition} [@agreesWith:reasoned2nd], PhD thesis
 [@ByrdPhD], and [online](https://www.youtube.com/watch?v=eQL48qYDwp4)
 [talks](https://www.youtube.com/watch?v=o3AHnyEf7IE).
 
@@ -146,7 +153,7 @@ format, supporting SPARQL access---for example,
 SPARQL provides a subset of what logic programming can do.
 However, SPARQL queries lack the property of composability and there is no way to
 reuse modular components across queries.  For example, to execute a
-range query on a genomic region using the FALDO model [@Bolleman:2016]
+range query on a genomic region using the FALDO model [@agreesWith:Bolleman2016]
 requires authoring a complex query over many triples. If we then wish
 to reuse parts of that query in a more complex query, we have to
 manually compose them together.
@@ -173,8 +180,8 @@ This will compile down to a more complex SPARQL query, and execute it against a 
 
 SPARQLProg now includes bindings for many common biological SPARQL
 endpoints. As part of this hackathon we developed codes to access RDF
-databases of MBGD [@Chiba:2015], KEGG OC, TogoVar, JCM, Allie, EBI
- BioSamples, UniProt, and DisGeNET [@Queralt:2016]. Future work includes using these
+databases of MBGD [@Chiba2015], KEGG OC, TogoVar, JCM, Allie, EBI
+ BioSamples, UniProt, and DisGeNET [@Queralt2016]. Future work includes using these
 Prolog codes as building blocks for integrative analysis.
 
 ## Extending the Biolink Model
@@ -203,6 +210,8 @@ The following tasks were accomplished as part of the BioHackathon:
 \item Represent family and pedigree information to support clinical knowledge
 \item Make the provenance model more rich and descriptive
 \end{enumerate}
+
+(note the list is written in embedded LaTeX)
 
 For future work, the group will ensure that the new classes added to
 the model will have appropriate mappings to other schemas and
@@ -252,5 +261,54 @@ BioLink model, and adding dynamic SPARQL support to miniKanren.
 
 We thank the organizers of the NBDC/DBCLS BioHackathon 2019 for
 travel support for some of the authors.
+
+## Supplemental information
+
+We use pandoc flavoured markdown, similar to Rstudio see \url{https://garrettgman.github.io/rmarkdown/authoring_pandoc_markdown.html}.
+
+## Tables and figures
+
+Tables can be added in the following way, though alternatives are possible:
+
+| Header 1 | Header 2 |
+| -------- | -------- |
+| item 1 | item 2 |
+| item 3 | item 4 |
+
+Table: Note that table caption is automatically numbered.
+
+
+| Term                | MB tools/ontologies using this term | Frequency on Biology Stack Exchange | Search Term         |
+|:-------------------:|:-----------------------------------:|:-----------------------------------:|:-------------------:|
+| Part | iGEM | 9065 | part + parts |
+| Component           | SBOL, SBOLDesigner, SBOLCanvas      | 2163                                | component           |
+| Module              | SBOL                                | 311                                 | module              |
+| Device              |                                     | 677                                 | device              |
+| System              |                                     | 16098                               | system              |
+| RBS                 |                                     | 548                                 | rbs                 |
+| Ribosome Entry Site | SO                                  | 8                                   | ribosome entry site |
+
+LaTeX table:
+
+
+
+\begin{tabular}{|l|l|}\hline
+Age & Frequency \\ \hline
+18--25  & 15 \\
+26--35  & 33 \\
+36--45  & 22 \\ \hline
+\end{tabular}
+
+## Mermaid graphs
+
+This is an example of embedding a graph
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 ## References
